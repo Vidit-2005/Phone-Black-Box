@@ -1,0 +1,162 @@
+{
+  "model_name": "PhoneBlackBox-DrivingEvent-EdgeMLP",
+  "version": "3.0.0",
+  "dataset": {
+    "total_windows": 21978,
+    "train_windows": 15308,
+    "validation_windows": 3268,
+    "test_windows": 3402,
+    "num_features": 62,
+    "num_classes": 9
+  },
+  "classes": {
+    "0": "crash",
+    "1": "near_miss",
+    "2": "normal_driving",
+    "3": "braking",
+    "4": "hard_braking",
+    "5": "turn",
+    "6": "sharp_turn",
+    "7": "bump",
+    "8": "pothole"
+  },
+  "input_features": [
+    "acc_x_mean",
+    "acc_x_std",
+    "acc_x_min",
+    "acc_x_max",
+    "acc_x_p2p",
+    "gyro_x_mean",
+    "gyro_x_std",
+    "gyro_x_min",
+    "gyro_x_max",
+    "gyro_x_p2p",
+    "acc_y_mean",
+    "acc_y_std",
+    "acc_y_min",
+    "acc_y_max",
+    "acc_y_p2p",
+    "gyro_y_mean",
+    "gyro_y_std",
+    "gyro_y_min",
+    "gyro_y_max",
+    "gyro_y_p2p",
+    "acc_z_mean",
+    "acc_z_std",
+    "acc_z_min",
+    "acc_z_max",
+    "acc_z_p2p",
+    "gyro_z_mean",
+    "gyro_z_std",
+    "gyro_z_min",
+    "gyro_z_max",
+    "gyro_z_p2p",
+    "acc_mag_mean",
+    "acc_mag_std",
+    "acc_mag_min",
+    "acc_mag_max",
+    "acc_mag_p2p",
+    "acc_mag_rms",
+    "acc_horiz_mean",
+    "acc_horiz_std",
+    "acc_horiz_max",
+    "jerk_mean",
+    "jerk_std",
+    "jerk_max",
+    "gyro_mag_mean",
+    "gyro_mag_std",
+    "gyro_mag_max",
+    "gyro_mag_p2p",
+    "speed_mean",
+    "speed_delta",
+    "fft_energy_total",
+    "fft_energy_low",
+    "fft_energy_high",
+    "fft_entropy",
+    "acc_mag_skew",
+    "acc_mag_kurtosis",
+    "gyro_mag_skew",
+    "gyro_mag_kurtosis",
+    "acc_xy_corr",
+    "acc_xz_corr",
+    "acc_yz_corr",
+    "gyro_xy_corr",
+    "gyro_xz_corr",
+    "gyro_yz_corr"
+  ],
+  "window": {
+    "sampling_rate_hz": 100,
+    "window_size_samples": 100,
+    "window_duration_seconds": 1.0
+  },
+  "preprocessing": {
+    "tree_models": "none",
+    "edge_mlp": "StandardScaler fitted on training split only"
+  },
+  "validation_selection": [
+    {
+      "model": "XGBoost",
+      "accuracy": 0.8727050183598531,
+      "macro_f1": 0.8683635983741183,
+      "weighted_f1": 0.8709337217928492,
+      "crash_recall": 0.9749430523917996,
+      "near_miss_recall": 0.6133333333333333,
+      "safety_score": 0.9429692161864951
+    },
+    {
+      "model": "LightGBM",
+      "accuracy": 0.8717870257037944,
+      "macro_f1": 0.8679326003925989,
+      "weighted_f1": 0.8701801445247942,
+      "crash_recall": 0.9658314350797267,
+      "near_miss_recall": 0.608,
+      "safety_score": 0.9364617846735883
+    },
+    {
+      "model": "Edge MLP",
+      "accuracy": 0.8246634026927785,
+      "macro_f1": 0.8140562085525608,
+      "weighted_f1": 0.820808302479016,
+      "crash_recall": 0.9703872437357631,
+      "near_miss_recall": 0.52,
+      "safety_score": 0.9234879331808024
+    }
+  ],
+  "test_benchmark": [
+    {
+      "model": "LightGBM",
+      "accuracy": 0.8259847148736038,
+      "macro_f1": 0.8131762339334916,
+      "weighted_f1": 0.8246824222392741,
+      "crash_recall": 0.9800443458980045,
+      "near_miss_recall": 0.5493333333333333
+    },
+    {
+      "model": "XGBoost",
+      "accuracy": 0.8345091122868901,
+      "macro_f1": 0.8227863125324979,
+      "weighted_f1": 0.833133437575185,
+      "crash_recall": 0.9822616407982262,
+      "near_miss_recall": 0.576
+    },
+    {
+      "model": "Edge MLP",
+      "accuracy": 0.8015873015873016,
+      "macro_f1": 0.7843650807157021,
+      "weighted_f1": 0.7967304398884049,
+      "crash_recall": 0.9822616407982262,
+      "near_miss_recall": 0.448
+    }
+  ],
+  "onnx": {
+    "exported": true,
+    "max_abs_logit_difference": 1.9073486328125e-06
+  },
+  "artifacts": [
+    "feature_contract.json",
+    "scaler_params.json",
+    "model_config.json",
+    "driving_event_classifier_mlp_state.pt",
+    "driving_event_classifier.onnx"
+  ]
+}
